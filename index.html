@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYAKIRAH.EXE - Arcade Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #111827;
+            color: #fff;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(20, 20, 20, 0.5) 50%), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 0);
+            background-size: 100% 4px, 1px 100%;
+            padding: 2rem 1rem;
+        }
+
+        .font-arcade {
+            font-family: 'Press Start 2P', cursive;
+            line-height: 1.6;
+        }
+
+        .font-title {
+            font-family: 'Bungee', cursive;
+        }
+
+        .text-pink {
+            color: #f472b6;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.8), 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+
+        .text-green {
+            color: #34d399;
+            text-shadow: 0 0 5px rgba(52, 211, 153, 0.8), 0 0 10px rgba(52, 211, 153, 0.6);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: #1f2937;
+            padding: 2rem;
+            border-radius: 1rem 1rem 0 0;
+            border: 4px solid #34d399;
+            border-bottom: none;
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-title p {
+            font-size: 1rem;
+        }
+
+        .header-contact {
+            text-align: right;
+            font-size: 0.75rem;
+        }
+
+        .header-contact p {
+            margin: 0.3rem 0;
+        }
+
+        .header-contact a {
+            color: #f472b6;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .header-contact a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #f472b6;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 0;
+        }
+
+        .nav-btn {
+            padding: 1.25rem 1.5rem;
+            background: #1f2937;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            border-radius: 0.5rem 0.5rem 0 0;
+            color: #34d399;
+            text-shadow: 0 0 5px rgba(52, 211, 153, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: #374151;
+            transform: scale(1.02);
+        }
+
+        .nav-btn.active {
+            background: #111827;
+            color: #f472b6;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.8);
+            border-bottom: 4px solid #f472b6;
+            transform: scale(1.05);
+        }
+
+        /* Content Area */
+        .content-box {
+            background: #111827;
+            padding: 3rem 2rem;
+            border: 4px dashed rgba(244, 114, 182, 0.7);
+            border-top: none;
+            border-radius: 0 0 1rem 1rem;
+            box-shadow: 0 20px 40px rgba(244, 114, 182, 0.3);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid;
+        }
+
+        /* Profile */
+        .profile-intro {
+            background: #1f2937;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(52, 211, 153, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .profile-intro p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        .status-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid;
+        }
+
+        .status-card.green {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #34d399;
+        }
+
+        .status-card.pink {
+            background: rgba(244, 114, 182, 0.2);
+            border-color: #f472b6;
+        }
+
+        .status-card.gray {
+            background: rgba(107, 114, 128, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #e5e7eb;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: #1f2937;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid rgba(52, 211, 153, 0.5);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .skill-title {
+            font-size: 1.125rem;
+        }
+
+        .skill-level {
+            font-size: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+        }
+
+        .skill-dot.max {
+            background: #f472b6;
+        }
+
+        /* Quests */
+        .quest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .quest-card {
+            background: #1f2937;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid rgba(244, 114, 182, 0.5);
+            transition: all 0.3s;
+        }
+
+        .quest-card:hover {
+            box-shadow: 0 0 30px rgba(244, 114, 182, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .quest-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quest-role {
+            color: #34d399;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .quest-impact {
+            background: linear-gradient(90deg, rgba(52, 211, 153, 0.2), transparent);
+            padding: 1rem;
+            border-left: 4px solid #34d399;
+            font-size: 1.125rem;
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        .quest-focus {
+            list-style: disc;
+            padding-left: 2rem;
+            color: #9ca3af;
+        }
+
+        .quest-focus li {
+            padding: 0.25rem 0;
+        }
+
+        /* Awards */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cert-card {
+            background: #1f2937;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid rgba(52, 211, 153, 0.5);
+            transition: all 0.3s;
+        }
+
+        .cert-card:hover {
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+
+        .cert-title {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-detail {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .recognition-box {
+            background: #1f2937;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid rgba(244, 114, 182, 0.5);
+        }
+
+        .recognition-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .recognition-item {
+            padding: 0.75rem 0;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            font-size: 1.25rem;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title h1 {
+                font-size: 1.75rem;
+            }
+
+            .header-title p {
+                font-size: 0.875rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-btn {
+                padding: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .content-box {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1 class="font-title text-pink">SYAKIRAH.EXE</h1>
+                    <p class="font-arcade text-green">PLAYER STATUS: ONLINE</p>
+                </div>
+                <div class="header-contact font-arcade">
+                    <p class="text-pink">HP: syakirafachid@gmail.com</p>
+                    <p class="text-green">CONTACT: 081776793321</p>
+                    <a href="https://linkedin.com/in/syakirah-fachid123" target="_blank">LINKEDIN.COM/PROFILE</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-btn font-arcade active" onclick="showTab('profile')">
+                🕹️ START
+            </button>
+            <button class="nav-btn font-arcade" onclick="showTab('skills')">
+                ⚡ SKILL TREE
+            </button>
+            <button class="nav-btn font-arcade" onclick="showTab('missions')">
+                🎯 QUEST LOG
+            </button>
+            <button class="nav-btn font-arcade" onclick="showTab('awards')">
+                🏆 ACHIEVEMENTS
+            </button>
+        </nav>
+
+        <!-- Content -->
+        <div class="content-box">
+            <!-- Profile Section -->
+            <section id="profile" class="content-section active">
+                <h2 class="font-title text-green">:: READY FOR DEPLOYMENT ::</h2>
+                <div class="profile-intro">
+                    <p class="text-pink font-arcade">
+                        I'm Syakirah: Certified Agile brainpower with a 3.81 GPA and 3+ years of experience bridging tech teams and business goals. Need an expert in <strong>Jira, Confluence, and next-level communication</strong> to keep your remote project on track? I'm your player one. Let's hit 'Start.'
+                    </p>
+                </div>
+                <div class="status-grid font-arcade">
+                    <div class="status-card green">
+                        <p class="text-green">STATUS: REMOTE READY</p>
+                    </div>
+                    <div class="status-card pink">
+                        <p class="text-pink">ROLE: AGILE SPECIALIST</p>
+                    </div>
+                    <div class="status-card gray">
+                        <p>LOCATION: GLOBAL SERVER</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="content-section">
+                <h2 class="font-title text-pink">[ SKILL TREE ] :: LEVEL UP!</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <h3 class="font-arcade text-green skill-title">AGILE TOOLKIT</h3>
+                            <span class="font-arcade text-pink skill-level">LVL 5</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span> Jira (Server/Cloud)</li>
+                            <li><span class="skill-dot"></span> Trello</li>
+                            <li><span class="skill-dot"></span> Confluence</li>
+                            <li><span class="skill-dot"></span> Asana</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <h3 class="font-arcade text-green skill-title">CODE STATS</h3>
+                            <span class="font-arcade text-pink skill-level">LVL 3</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span> MySQL</li>
+                            <li><span class="skill-dot"></span> Java</li>
+                            <li><span class="skill-dot"></span> JavaScript</li>
+                            <li><span class="skill-dot"></span> System Analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <h3 class="font-arcade text-green skill-title">COMMUNICATION DOC</h3>
+                            <span class="font-arcade text-pink skill-level">LVL MAX</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot max"></span> User-Centric Docs</li>
+                            <li><span class="skill-dot max"></span> SOPs</li>
+                            <li><span class="skill-dot max"></span> Stakeholder Reporting</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <h3 class="font-arcade text-green skill-title">TEAM FACILITATION</h3>
+                            <span class="font-arcade text-pink skill-level">LVL 4</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="skill-dot"></span> Agile Ceremonies</li>
+                            <li><span class="skill-dot"></span> Cross-Functional Sync</li>
+                            <li><span class="skill-dot"></span> Conflict Resolution</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Missions Section -->
+            <section id="missions" class="content-section">
+                <h2 class="font-title text-green">[ QUEST LOG ] :: COMPLETED MISSIONS</h2>
+                <div class="quest-list">
+                    <div class="quest-card">
+                        <h3 class="font-arcade text-pink quest-title">QUEST: Doc User Satisfaction Boost</h3>
+                        <p class="quest-role">Role: IT Technical Writer</p>
+                        <div class="quest-impact font-title">
+                            Result: 🏆 Improved user satisfaction by 80% (New High Score!)
+                        </div>
+                        <ul class="quest-focus">
+                            <li>Designed feedback loop (Gamified Data Collection).</li>
+                            <li>Translated features to User Manuals (Boss Fight Guide).</li>
+                            <li>Maintained version control (Patch Notes 2.0).</li>
+                        </ul>
+                    </div>
+
+                    <div class="quest-card">
+                        <h3 class="font-arcade text-pink quest-title">QUEST: Agile Transparency Protocol</h3>
+                        <p class="quest-role">Role: Agile Facilitator Support</p>
+                        <div class="quest-impact font-title">
+                            Result: 🚀 Streamlined communication, achieved faster sprint alignment.
+                        </div>
+                        <ul class="quest-focus">
+                            <li>Supported backlog prioritization via Jira/Trello (Inventory Management).</li>
+                            <li>Enforced Definition of Done (Final Boss Checkpoint).</li>
+                            <li>Structured documentation for all releases (Game Save Files).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Awards Section -->
+            <section id="awards" class="content-section">
+                <h2 class="font-title text-pink">[ ACHIEVEMENTS UNLOCKED! ]</h2>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <h3 class="font-arcade text-green cert-title">Google Project Management Professional Certificate (Agile Focus)</h3>
+                        <p class="cert-detail">Verified expertise in Agile frameworks, risk management, and project execution.</p>
+                    </div>
+                    <div class="cert-card">
+                        <h3 class="font-arcade text-green cert-title">Microsoft Technology Associate: Software Developer Fundamental</h3>
+                        <p class="cert-detail">Technical base in software development principles (Java/JavaScript knowledge).</p>
+                    </div>
+                    <div class="cert-card">
+                        <h3 class="font-arcade text-green cert-title">BNSP: Competent in Junior Web Development</h3>
+                        <p class="cert-detail">Certified practical skills in web technology implementation.</p>
+                    </div>
+                    <div class="cert-card">
+                        <h3 class="font-arcade text-green cert-title">GPA 3.81/4.00</h3>
+                        <p class="cert-detail">Academic Powerup Acquired</p>
+                    </div>
+                </div>
+
+                <div class="recognition-box">
+                    <h3 class="font-arcade text-pink recognition-title">:: RECOGNITION BADGES ::</h3>
+                    <div class="recognition-item">
+                        <span class="badge">🏆</span>
+                        <strong>1st Favorite Winner "3 Minute Thesis"</strong> (Audience Choice - Big Deal!)
+                    </div>
+                    <div class="recognition-item">
+                        <span class="badge">🥈</span>
+                        <strong>2nd Place Winner "3 Minute Thesis"</strong> (Judge Panel Approval)
+                    </div>
+                    <div class="recognition-item">
+                        <span class="badge">💻</span>
+                        <strong>Bachelor's Degree in Information System</strong> (Base Class Unlocked)
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="font-arcade">
+        <p class="pulse">LOADING SUCCESS: PORTFOLIO VERSION 1.0.0</p>
+        <p>DO NOT POWER OFF.</p>
+    </footer>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.closest('.nav-btn').classList.add('active');
+        }
+    </script>
+</body>
+</html>
